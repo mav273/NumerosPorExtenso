@@ -124,10 +124,8 @@ function string2number(string){
 
     if (lower.split(' ').some(r => negativos.includes(r))) total = total * -1
     console.log(total)
-    
 }
     
-
 
 const string = process.argv[2];
 string2number(string);
