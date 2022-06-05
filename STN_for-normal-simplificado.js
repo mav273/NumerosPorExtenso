@@ -26,6 +26,7 @@ function string2number(string){
     const trim       = onespace.trim()
     const lower      = trim.toLowerCase()
     const hasdecimal = verificarDecimal(lower)
+
     //verifica se a string possui numeros decimais
     let array
     let array2
@@ -44,7 +45,7 @@ function string2number(string){
         array    = antes.split(' ')
     }
     else array = lower.split(' ')
-
+    //
 
     let resultado    = 0 
     let armazenado   = 0
@@ -65,7 +66,6 @@ function string2number(string){
             array      = array2
         }
 
-        
         //checa se o valor existe no por_extenso
         const possui = chaves.includes(atual)
         //pega o valor através do nome por extenso
@@ -111,7 +111,7 @@ function string2number(string){
     }
 
 
-    if (isdecimal){
+    if (isdecimal == true){
         ndResult = resultado
         total = ` ${stResult}.${ndResult}`
         total = parseFloat(total)
