@@ -63,4 +63,7 @@ const maiorque999 = [
     'mil', 'milhão','milhao','milhões','milhoes','bilhão','bilhao','bilhões','bilhoes'
 ]
 
-module.exports = {por_extenso, maiorque999}
+const decimal = ['virgula','ponto','vírgula','.',',','reais']
+
+const negativos = ['menos','negativo','negativos']
+module.exports = {por_extenso, maiorque999,decimal,negativos}
