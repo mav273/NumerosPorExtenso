@@ -3,6 +3,7 @@ Cada objto tem um número,
 vai até bilhões,
 foram adicionados números com e sem '~',
 também foi adicionado o número no plural e singular
+Não foram adicionados: Milesimos, ordinais, e formas femininas
 */
 
 const por_extenso = {

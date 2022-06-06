@@ -25,16 +25,22 @@ function string2number(string){
     const trim       = onlyE.trim()
     const lower      = trim.toLowerCase()
     const tudo       = lower.split(' ')
-    const hasdecimal = verificarDecimal(tudo)
-    //verifica se a string possui numeros decimais
     let array  = tudo
+   
+    /*
+    Lógica dos decimais: Caso haja um separador decimal (valores do array decimal), o
+    array será dividido em dois, uma parte com o valor antes do decimal (array1) e uma parte com o valor após a decimal (array2). No final os valores serão colocados em uma string só. 
+    */
+
+    //verifica se a string possui numeros decimais
+    const hasdecimal = verificarDecimal(tudo)
     let array2
     if (hasdecimal != null) { 
         const index  = tudo.indexOf(hasdecimal[0])
         array2 = tudo.slice(index, tudo.length)
     }
-    let stResult
-    let ndResult
+    let FirstResult
+    let SecondResult
     //
 
     let resultado    = 0 
@@ -48,7 +54,7 @@ function string2number(string){
         const atual  = tudo[i]
         //Caso o valor seja o separador do decimal, reseta os valores e guarda o resultado anterior ao decimal
         if (decimal.includes(atual)){
-            stResult   = resultado
+            FirstResult   = resultado
             resultado  = 0
             armazenado = 0
             anterior   = null
@@ -60,12 +66,13 @@ function string2number(string){
         const possui = chaves.includes(atual)
         //verifica o valor através do nome por extenso
         const num = por_extenso[atual];
-        //verifica se antes do valor atual, houve alguma interação com os valores maiores que mil
+        //verifica se antes ou depois do valor atual, houve alguma interação com os valores maiores que mil
         const previous   = array.slice(0,i).some(r=> maiorque999.includes(r))
         const next       = array.slice(i + 1,array.length).some(r=> maiorque999.includes(r))
+        //verifica se o valor atual é maior que 999 
         const morett     = maiorque999.includes(atual)
 
-        //substituição do valor anterior com "e" ou ","
+        //substituição do valor anterior com "e"
         if (atual == 'e') anterior = atual 
         if (possui){
             if(anterior == 'e' || resultado == 0){
@@ -94,14 +101,14 @@ function string2number(string){
                     armazenado = 0 
                 }
             }
-        anterior = num
+            anterior = num
         }
     }
 
 
     if (hasdecimal != null){
-        ndResult = resultado
-        total = ` ${stResult}.${ndResult}`
+        SecondResult = resultado
+        total = ` ${FirstResult}.${SecondResult}`
         total = parseFloat(total)
     }
     else {
@@ -114,6 +121,7 @@ function string2number(string){
     if(tudo.includes('reais')) total = 'R$ '+ parseFloat(total).toFixed(2)
 
     if (tudo.some(r => negativos.includes(r))) total = total * -1
+    
     console.log(total)
 }
     
