@@ -1,15 +1,15 @@
 //Tentando deixar o codigo mais bonito
 
 //Import do objeto com os números
-const {por_extenso, maiorque999,decimal,negativos} = require('./num_objeto')
+const {por_extenso, maiorque999,decimal,negativos,tempo,soma,todos_arrays} = require('./num_objeto')
 const chaves  = Object.keys(por_extenso)
 
 function verificarDecimal(se){
     const dec = se.some(r => decimal.includes(r))
     if (dec){
         const verdadeiro = []
-        for (valor of decimal){
-            const tem = se.includes(valor)
+        for (valor of se){
+            const tem = decimal.includes(valor)
             if (tem) verdadeiro.push(valor)
         }
         if (verdadeiro.length > 1) throw 'É permitido somente uma parte decimal'
@@ -17,7 +17,17 @@ function verificarDecimal(se){
     }
     else return null
 }
+function verificarArray(array){
+    const todos_arrays = []
+    todos_arrays.push(chaves,decimal,negativos,soma)
+    for (c of chaves) todos_arrays.push(c)
+    for (d of decimal) todos_arrays.push(d)
+    const extenso  = array.all(r => todos_arrays.includes(r))
 
+    if (!extenso){
+        throw 'String passada possui alguma palavra ou caractere invalidos'
+    }
+}
 function string2number(string){
     //String sendo "organizada"
     const onespace   = string.replace(/  +/g, ' ')
@@ -25,8 +35,9 @@ function string2number(string){
     const trim       = onlyE.trim()
     const lower      = trim.toLowerCase()
     const tudo       = lower.split(' ')
+    //const verificacao = verificarArray(tudo)
     let array  = tudo
-   
+    
     /*
     Lógica dos decimais: Caso haja um separador decimal (valores do array decimal), o
     array será dividido em dois, uma parte com o valor antes do decimal (array1) e uma parte com o valor após a decimal (array2). No final os valores serão colocados em uma string só. 
@@ -52,6 +63,7 @@ function string2number(string){
     for (var i = 0;i < tudo.length;i++){
         //seleciona o valor que está sendo analisado no array
         const atual  = tudo[i]
+
         //Caso o valor seja o separador do decimal, reseta os valores e guarda o resultado anterior ao decimal
         if (decimal.includes(atual)){
             FirstResult   = resultado
@@ -60,7 +72,6 @@ function string2number(string){
             anterior   = null
             array      = array2
         }
-
 
         //verifica se o valor existe no por_extenso
         const possui = chaves.includes(atual)
@@ -105,7 +116,7 @@ function string2number(string){
         }
     }
 
-
+    //Caso a string passada tenha decimal, junte os dois valores e transforma a string em float
     if (hasdecimal != null){
         SecondResult = resultado
         total = ` ${FirstResult}.${SecondResult}`
@@ -114,15 +125,25 @@ function string2number(string){
     else {
         total = resultado
     }
+    //Caso o valor tem algo que indique que é BRL; adiciona R$ e limita o decimal para 2 casas 
     if(!(tudo.includes('reais')) && tudo.includes('centavos')){ 
         total = total/100
         total =  'R$ ' + parseFloat(total).toFixed(2)
     }
     if(tudo.includes('reais')) total = 'R$ '+ parseFloat(total).toFixed(2)
 
+    //Caso o valor possua decimo, centesimo ou milesimo; adicione '0.'
+    if(tudo.some(r => tempo.includes(r))){
+        if (!(tudo.includes('inteiro')) || !(tudo.includes('inteiros'))){
+            total = '0.' + total 
+            total = parseFloat(total) 
+        }
+    }
+
+    //Caso possua algum indicador de negativo; multiplique p resultado por -1
     if (tudo.some(r => negativos.includes(r))) total = total * -1
     
-    console.log(total)
+    return console.log(total)
 }
     
 module.exports = { string2number }

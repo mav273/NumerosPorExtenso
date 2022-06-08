@@ -64,6 +64,10 @@ oitocentos: 800,
 novecentos: 900,
 
 mil: 1000,
+milesimo: 1000,
+milésimo: 1000,
+milesimos: 1000,
+milésimos: 1000,
 
 milhão: 1000000,
 milhões: 1000000,
@@ -78,13 +82,29 @@ bilhoes: 1000000000
 };
 
 const maiorque999 = [
-    'mil', 'milhão','milhao','milhões','milhoes','bilhão','bilhao','bilhões','bilhoes'
+    'mil', 'milésimo', 'milesimo', 'milesimos', 'milésimos','milhão','milhao','milhões','milhoes','bilhão','bilhao','bilhões','bilhoes'
+]
+
+const tempo = [
+    'decimos',
+    'décimos',
+    'décimo',
+    'decimo',
+    'centésimos',
+    'centesimos',
+    'centésimo',
+    'centesimo',
+    'milesimos',
+    'milésimos'
+
 ]
 
 const decimal = ['virgula','ponto','vírgula','.','reais','inteiros','inteiro']
 
 const negativos = ['menos','negativo','negativos']
 
-const soma = [',','e']
+const soma = ['e',',']
 
-module.exports = {por_extenso, maiorque999,decimal,negativos}
+
+
+module.exports = {por_extenso, maiorque999,decimal,negativos,tempo,soma}
